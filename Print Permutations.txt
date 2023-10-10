@@ -1,0 +1,92 @@
+Print Permutations
+Send Feedback
+Given an input string (STR), print all possible permutations of the input string.
+Note:
+The input string may contain the same characters, so there will also be the same permutations.
+The order of permutations doesn’t matter.
+Input Format:
+The only input line contains a string (STR) of alphabets in lower case
+Output Format:
+Print each permutations in a new line
+Constraint:
+1<=length of STR<=8
+Time Limit: 1sec
+Sample Input 1:
+cba
+Sample Output 1:
+abc
+acb
+bac
+bca
+cab
+cba
+
+#include <iostream>
+#include <string>
+using namespace std;
+/*void permute(string a, int l, int r) 
+{ 
+    // Base case 
+    if (l == r) 
+        cout<<a<<endl; 
+    else
+    { 
+        // Permutations made 
+        for (int i = l; i <= r; i++) 
+        { 
+ 
+            // Swapping done 
+            swap(a[l], a[i]); 
+ 
+            // Recursion called 
+            permute(a, l+1, r); 
+ 
+            //backtrack 
+            swap(a[l], a[i]); 
+        } 
+    } 
+}*/
+void permutations(string str, int i, int n)
+{
+    // base condition
+    if (i == n - 1)
+    {
+        cout << str << endl;
+        return;
+    }
+ 
+    // process each character of the remaining string
+    for (int j = i; j < n; j++)
+    {
+        // swap character at index `i` with the current character
+        swap(str[i], str[j]);        // STL `swap()` used
+ 
+        // recur for substring `str[i+1, n-1]`
+        permutations(str, i + 1, n);
+ 
+        // backtrack (restore the string to its original state)
+        swap(str[i], str[j]);
+    }
+}
+ 
+
+void printPermutations(string input){
+
+    int n=	input.size();
+    permutations(input,0,n);
+}
+
+// Main Code:
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+#include "solution.h"
+
+int main() {
+    string input;
+    cin >> input;
+    printPermutations(input);
+    return 0;
+}

@@ -1,0 +1,151 @@
+Quick Sort Code
+Send Feedback
+Given the 'start' and the 'end'' positions of the array 'input'. Your task is to sort the elements between 'start' and 'end' using quick sort.
+
+
+Note :
+Make changes in the input array itself.
+Input format :
+Line 1 : Integer N i.e. Array size
+Line 2 : Array elements (separated by space)
+Output format :
+Array elements in increasing order (separated by space)
+Sample Input 1 :
+6 
+2 6 8 5 4 3
+Sample Output 1 :
+2 3 4 5 6 8
+Sample Input 2 :
+5
+1 2 3 5 7
+Sample Output 2 :
+1 2 3 5 7 
+Constraints :
+1 <= N <= 10^3
+0 <= input[i] <= 10^9
+
+
+int partiation(int input[] , int s , int e){
+	int c = 0;
+	for(int k = s+1 ; k<=e ; k++){
+		if(input[s] >= input[k]){
+			c++;
+		}
+	}
+	int temp = input[c+s];
+	input[c+s] = input[s];
+	input[s] = temp;
+	int i = s;
+	int j = e;
+	while(i<s+c && j>c+s){
+		if(input[i] <=input[c+s]){
+			i++;
+		}
+		else if(input[j] > input[c+s]){
+			j--;
+		}
+		//else if(input[i]>input[s+c]&&input[j]<=input[s+c]){
+   else{
+        int ayu = input[i];
+			input[i] = input[j];
+			input[j] = ayu;
+			i++;
+			j--;
+		}
+	}
+    int pivot =s+c ;
+   return pivot ;
+	
+}
+void qs(int input[] , int s , int e){
+	if(s>=e){
+		return;
+	}
+	int pi;
+	pi = partiation(input , s , e);
+	qs(input , s , pi-1);
+	qs(input , pi+1 , e);
+}
+void  quickSort(int input[] , int size){
+	qs(input , 0 , size-1);
+}/*
+	To apply the method explained in the hint video, we have to add two more parameters in the function call. This can be done by calling a helper function from given function. The helper function can have three parameters: array, start index, end index.  
+	
+	Skeleton code to achieve this:
+	#include <iostream>
+	using namespace std;
+	
+	void quickSort(int input[], int start, int end)
+	{
+    		// your code goes here 
+	}
+	void quickSort(int input[], int size)
+	{
+    		quickSort(input, 0, size - 1);
+	}
+		
+*/
+
+// Main Code:
+
+#include <algorithm>
+#include <climits>
+#include <cstdlib>
+#include <cstring>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <utility>
+#include <vector>
+using namespace std;
+#include "solution.h"
+
+class Runner {
+    vector<int> v;
+
+public:
+    void takeInput() {
+        int n;
+        cin >> n;
+        v.resize(n);
+        for (int i = 0; i < n; i++)
+            cin >> v[i];
+    }
+
+    void execute() {
+        int n = (int)v.size();
+
+        int* input = new int[n];
+        for (int i = 0; i < n; i++)
+            input[i] = v[i];
+
+        quickSort(input, 0, n - 1);
+
+        free(input);
+    }
+
+    void executeAndPrintOutput() {
+        int n = (int)v.size();
+
+        int* input = new int[n];
+        for (int i = 0; i < n; i++)
+            input[i] = v[i];
+
+        quickSort(input, 0, n - 1);
+
+        for (int i = 0; i < n; i++)
+            cout << input[i] << ' ';
+        cout << '\n';
+
+        free(input);
+    }
+};
+
+int main() {
+    // freopen("./Testcases/large/in/input.txt", "r", stdin);
+    // freopen("./Testcases/large/out/output.txt", "w", stdout);
+    Runner runner;
+    runner.takeInput();
+    runner.executeAndPrintOutput();
+    return 0;
+}
